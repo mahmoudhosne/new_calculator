@@ -16,6 +16,9 @@ button {
 
 .btn-close {
   cursor: pointer;
+  position: absolute;
+  top: 7px;
+  right: 10px;
 }
 main {
   max-width: 100%;
@@ -123,9 +126,8 @@ h1 {
 .btn-equall {
   width: 50%;
 }
-[class^='btn-']:active {
+
+button[type='button']:active {
   background-color: rgba(232, 65, 65, 0.836);
   border-radius: 5px;
 }
-
-/* buttons circyls */

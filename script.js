@@ -126,11 +126,11 @@ btnAc.addEventListener('click', function () {
   currentNumber = [0, '', 0, 0];
 });
 
-// // close program
-// const btnClose = getDomEle('btn-close');
-// const content = getDomEle('content');
+// close program
+const btnClose = getDomEle('btn-close');
+const content = getDomEle('content');
 
-// btnClose.addEventListener('click', function () {
-//   content.classList.add('hidden');
-// });
+btnClose.addEventListener('click', function () {
+  content.classList.add('hidden');
+});
 // =========================================
