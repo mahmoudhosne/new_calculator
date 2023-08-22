@@ -131,3 +131,6 @@ button[type='button']:active {
   background-color: rgba(232, 65, 65, 0.836);
   border-radius: 5px;
 }
+.l {
+  margin: 0%;
+}
