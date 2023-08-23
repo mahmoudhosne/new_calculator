@@ -2,7 +2,7 @@
 
 let activeField = 0;
 // values will store in current number
-let currentNumber = [0, '', 0, 0, 0];
+let currentNumber = [0, '', 0, 0];
 // if true active field = 0 else = 1
 let active = true;
 
@@ -10,24 +10,6 @@ let active = true;
 const getDomEle = function (className) {
   return document.querySelector(`.${className}`);
 };
-
-const calcNumbers = function (firstNum, operationS, seconedNum, resultCalc) {
-  if (operationS.textContent === '+') {
-    firstNum = +firstNum + +seconedNum;
-    resultCalc = firstNum;
-  } else if (operationS.textContent === '-') {
-    firstNum = +firstNum + +seconedNum;
-    resultCalc = firstNum;
-  } else if (operationS.textContent === '*') {
-    firstNum = +firstNum * +seconedNum;
-    resultCalc = firstNum;
-  } else if (operationS.textContent === '/') {
-    firstNum = +firstNum / +seconedNum;
-    resultCalc = firstNum;
-  }
-};
-// let x = 0;
-// console.log(10, '+', 5, x);
 
 let firstField = getDomEle('value-input--0');
 let secondField = getDomEle('value-input--2');
@@ -79,8 +61,6 @@ for (const btn of btns) {
     }
   });
 }
-
-// btns equall and result value
 
 // btns operation sign
 const devide = getDomEle('btn-devide');
@@ -142,7 +122,6 @@ btnEquall.addEventListener('click', function () {
     }
   }
 });
-// get all operations every hour
 
 // // //reset all fields
 
@@ -158,12 +137,6 @@ btnAc.addEventListener('click', function () {
   currentNumber = [0, '', 0, 0];
 });
 
-// document.addEventListener('keydown', function (e) {
-//   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-//     modal.classList.add('hidden');
-//     overlay.classList.add('hidden');
-//   }
-// });
 document.addEventListener('keydown', function (e) {
   if (e.key >= 0) {
     if (e.key === '0') {
@@ -250,12 +223,7 @@ document.addEventListener('keydown', function (e) {
     }
   }
 });
-// document.addEventListener('keydown', function (e) {
-//   // if (e.key >= 0) {
-//   //   document.querySelector(`.value-input--${activeField}`).textContent = e.key;
-//   // }
-//   console.log(e);
-// });
+
 // close program
 const btnClose = getDomEle('btn-close');
 const content = getDomEle('content');
