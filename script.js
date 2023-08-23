@@ -11,6 +11,8 @@ const getDomEle = function (className) {
   return document.querySelector(`.${className}`);
 };
 
+// function removing number by number using line 256
+
 let firstField = getDomEle('value-input--0');
 let secondField = getDomEle('value-input--2');
 
@@ -71,17 +73,22 @@ const btnPercentage = getDomEle('btn-percentge');
 const btnOperationSignsArr = [devide, muiltplye, mines, plus, btnPercentage];
 for (const operationSign of btnOperationSignsArr) {
   operationSign.addEventListener('click', function () {
+    if (currentNumber[3] > 0) {
+      firstField.textContent = currentNumber[3];
+      btnResult.textContent = '';
+    }
     if (firstField.textContent !== '') {
       activeField = 2;
       operationSignField.textContent = operationSign.textContent;
+      currentNumber[1] = operationSignField.textContent;
     }
   });
 }
 
 // btn Equall
 
-const btnEquall = document.querySelector('.btn-equall');
-const btnResult = document.querySelector('.value-result');
+const btnEquall = getDomEle('btn-equall');
+const btnResult = getDomEle('value-result');
 btnEquall.addEventListener('click', function () {
   if (
     firstField.textContent !== '' &&
@@ -142,7 +149,6 @@ btnAc.addEventListener('click', function () {
   document.querySelector('.operation').textContent = '';
   document.querySelector('.value-result').textContent = '';
   activeField = 0;
-  active = true;
   currentNumber = [0, '', 0, 0];
 });
 
@@ -243,6 +249,37 @@ document.addEventListener('keydown', function (e) {
         secondField.textContent = '';
       }
     }
+  }
+});
+
+// btn remove num by num
+
+const btnRemoveNumByNum = getDomEle('btn-x');
+// const removNumByNum = (current, i, field) => {
+//   let cut = current.split('');
+//   cut = cut.slice(0, -1);
+//   cut = cut.join('');
+//   current = cut;
+//   i = current;
+//   field = i;
+// };
+
+btnRemoveNumByNum.addEventListener('click', function () {
+  if (btnResult.textContent > 0) {
+    btnResult.textContent = '';
+  }
+  let [firstNum, operationSign, secondNum] = currentNumber;
+  if (firstNum >= 0 && operationSign !== '' && secondNum >= 0) {
+    let cut = secondNum;
+    cut = cut.split('');
+    cut = cut.slice(0, -1);
+    secondNum = cut.join('');
+    currentNumber[2] = secondNum;
+    secondField.textContent = currentNumber[2];
+  } else if (firstNum >= 0) {
+    // TODO
+    console.log(operationSign);
+    console.log(firstNum);
   }
 });
 
