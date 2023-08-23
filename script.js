@@ -67,7 +67,8 @@ const devide = getDomEle('btn-devide');
 const muiltplye = getDomEle('btn-muiltplye');
 const mines = getDomEle('btn-mines');
 const plus = getDomEle('btn-plus');
-const btnOperationSignsArr = [devide, muiltplye, mines, plus];
+const btnPercentage = getDomEle('btn-percentge');
+const btnOperationSignsArr = [devide, muiltplye, mines, plus, btnPercentage];
 for (const operationSign of btnOperationSignsArr) {
   operationSign.addEventListener('click', function () {
     if (firstField.textContent !== '') {
@@ -116,6 +117,14 @@ btnEquall.addEventListener('click', function () {
         +firstField.textContent / +secondField.textContent;
       currentNumber[1] = operationSignField.textContent;
       firstField.textContent = '';
+      operationSignField.textContent = '';
+      secondField.textContent = '';
+      currentNumber[3] = btnResult.textContent;
+    } else if (operationSignField.textContent === '%') {
+      let percentage = +firstField.textContent * +secondField.textContent;
+      btnResult.textContent = percentage / 100;
+      firstField.textContent = '';
+      currentNumber[1] = operationSignField.textContent;
       operationSignField.textContent = '';
       secondField.textContent = '';
       currentNumber[3] = btnResult.textContent;
@@ -185,7 +194,13 @@ document.addEventListener('keydown', function (e) {
         secondField.textContent += e.key;
       }
     }
-  } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+  } else if (
+    e.key === '+' ||
+    e.key === '-' ||
+    e.key === '*' ||
+    e.key === '/' ||
+    e.key === '%'
+  ) {
     if (firstField.textContent >= 0) {
       operationSignField.textContent = e.key;
     }
@@ -215,6 +230,13 @@ document.addEventListener('keydown', function (e) {
       } else if (operationSignField.textContent === '/') {
         btnResult.textContent =
           +firstField.textContent / +secondField.textContent;
+        currentNumber[3] = btnResult.textContent;
+        firstField.textContent = '';
+        operationSignField.textContent = '';
+        secondField.textContent = '';
+      } else if (operationSignField.textContent === '%') {
+        let percentage = +firstField.textContent * +secondField.textContent;
+        btnResult.textContent = percentage / 100;
         currentNumber[3] = btnResult.textContent;
         firstField.textContent = '';
         operationSignField.textContent = '';
