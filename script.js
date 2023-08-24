@@ -2,7 +2,7 @@
 
 let activeField = 0;
 // values will store in current number
-let currentNumber = [0, '', 0, 0];
+let currentNumber = ['', '', '', 0];
 // if true active field = 0 else = 1
 let active = true;
 
@@ -160,13 +160,14 @@ document.addEventListener('keydown', function (e) {
         operationSignField.textContent === ''
       ) {
         firstField.textContent = e.key;
+        btnResult.textContent = '';
       } else if (
         firstField.textContent > 0 &&
         operationSignField.textContent === ''
       ) {
-        if (currentNumber[3] > 0) {
-          currentNumber[3] = '';
-          btnResult.textContent = currentNumber[3];
+        if (btnResult.textContent >= 0) {
+          btnResult.textContent = '';
+          currentNumber[3] = btnResult.textContent;
         }
         firstField.textContent += e.key;
         currentNumber[0] = firstField.textContent;
@@ -207,8 +208,14 @@ document.addEventListener('keydown', function (e) {
     e.key === '/' ||
     e.key === '%'
   ) {
-    if (firstField.textContent >= 0) {
+    if (firstField.textContent >= 0 && btnResult.textContent === '') {
       operationSignField.textContent = e.key;
+    } else if (btnResult.textContent >= 0) {
+      firstField.textContent = btnResult.textContent;
+      currentNumber[0] = firstField.textContent;
+      operationSignField.textContent = e.key;
+      btnResult.textContent = '';
+      currentNumber[3] = btnResult.textContent;
     }
   } else if (e.key === 'Enter') {
     if (operationSignField.textContent !== '') {
@@ -249,6 +256,43 @@ document.addEventListener('keydown', function (e) {
         secondField.textContent = '';
       }
     }
+  } else if (e.key === 'Backspace') {
+    if (btnResult.textContent <= 0 || btnResult.textContent > 0) {
+      btnResult.textContent = '';
+      currentNumber[3] = btnResult.textContent;
+      if (
+        secondField.textContent >= 0 &&
+        operationSignField.textContent !== '' &&
+        firstField.textContent >= 0
+      ) {
+        let cut = secondField.textContent;
+        cut = cut.split('');
+        cut = cut.slice(0, -1);
+        secondField.textContent = cut.join('');
+        currentNumber[2] = secondField.textContent;
+
+        if (
+          operationSignField.textContent !== '' &&
+          secondField.textContent === ''
+        ) {
+          let cut = operationSignField.textContent;
+          cut = cut.split('');
+          cut = cut.slice(0, -1);
+          operationSignField.textContent = cut.join('');
+          currentNumber[1] = operationSignField.textContent;
+        }
+      } else if (
+        firstField.textContent >= 0 &&
+        operationSignField.textContent === '' &&
+        secondField.textContent === ''
+      ) {
+        let cut = firstField.textContent;
+        cut = cut.split('');
+        cut = cut.slice(0, -1);
+        firstField.textContent = cut.join('');
+        currentNumber[0] = firstField.textContent;
+      }
+    }
   }
 });
 
@@ -276,10 +320,24 @@ btnRemoveNumByNum.addEventListener('click', function () {
     secondNum = cut.join('');
     currentNumber[2] = secondNum;
     secondField.textContent = currentNumber[2];
-  } else if (firstNum >= 0) {
-    // TODO
-    console.log(operationSign);
-    console.log(firstNum);
+    if (operationSign !== '') {
+      if (secondNum === '') {
+        console.log('random string');
+        let cut = operationSign;
+        cut = cut.split('');
+        cut = cut.slice(0, -1);
+        operationSign = cut.join('');
+        currentNumber[1] = operationSign;
+        operationSignField.textContent = currentNumber[1];
+      }
+    }
+  } else if (firstNum >= 0 && operationSign === '' && secondNum >= 0) {
+    let cut = firstNum;
+    cut = cut.split('');
+    cut = cut.slice(0, -1);
+    firstNum = cut.join('');
+    currentNumber[0] = firstNum;
+    firstField.textContent = currentNumber[0];
   }
 });
 
